@@ -13,7 +13,7 @@ from starlette.staticfiles import StaticFiles
 export_file_url = 'https://www.dropbox.com/s/eko5cgam7cbcekr/photos.pkl?raw=1'
 export_file_name = 'photos.pkl'
 
-classes = ['fake', 'true']
+classes = ['fake', 'real']
 path = Path(__file__).parent
 
 app = Starlette()
