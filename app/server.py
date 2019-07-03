@@ -10,10 +10,14 @@ from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 
 # export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
-export_file_url = 'https://www.dropbox.com/s/eko5cgam7cbcekr/photos.pkl?raw=1'
+export_file_url = 'https://www.dropbox.com/s/6qiuobob3yn7hls/photos.pkl?raw=1'
+
+# export_file_name = 'export.pkl'
 export_file_name = 'photos.pkl'
 
+# classes = ['black', 'grizzly', 'teddys']
 classes = ['fake', 'real']
+# classes = ['fake', 'real']
 path = Path(__file__).parent
 
 app = Starlette()
