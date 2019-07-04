@@ -21,6 +21,7 @@ function analyze() {
   el("analyze-button").innerHTML = "Analyzing...";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
+  console.log(`${loc.protocol}//${loc.hostname}:${loc.port}/analyze`, 'analyizee')
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
     true);
   xhr.onerror = function() {
@@ -35,6 +36,7 @@ function analyze() {
   };
 
   var fileData = new FormData();
+  console.log(uploadFiles[0], 'up files')
   fileData.append("file", uploadFiles[0]);
   xhr.send(fileData);
 }
