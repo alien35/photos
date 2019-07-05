@@ -66,11 +66,11 @@ async def analyze(request):
     # img_data = await request.form()
     url = 'https://firebasestorage.googleapis.com/v0/b/videoapp-17413.appspot.com/o/11577e36-42ba-44a0-ab89-d5e0d7675c5f?alt=media&token=9585da0a-f8b8-4e6b-88ab-5f44c0fa7fe7'
     response = urllib.request.urlopen(url)
-    print(response)
+    # print(response)
     img_bytes = (response.read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
-    print(str(learn.predict(img)[0]))
+    # print(str(learn.predict(img)[0]))
     # TODO: send prediction here, bro
     return JSONResponse({'result': str(prediction)})
 
