@@ -8,6 +8,7 @@ from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
+import urllib.request
 
 # export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
 export_file_url = 'https://www.dropbox.com/s/6et34v79gn0347z/photos.pkl?raw=1'
@@ -62,9 +63,11 @@ async def homepage(request):
 
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
-    img_data = await request.form()
-    print(img_data['file'])
-    img_bytes = await (img_data['file'].read())
+    # img_data = await request.form()
+    url = 'https://firebasestorage.googleapis.com/v0/b/videoapp-17413.appspot.com/o/11577e36-42ba-44a0-ab89-d5e0d7675c5f?alt=media&token=9585da0a-f8b8-4e6b-88ab-5f44c0fa7fe7'
+    response = urllib.request.urlopen(url)
+    print(response)
+    img_bytes = (response.read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
     print(str(learn.predict(img)[0]))
