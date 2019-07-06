@@ -11,7 +11,8 @@ from starlette.staticfiles import StaticFiles
 import urllib.request
 
 # export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
-export_file_url = 'https://www.dropbox.com/s/6et34v79gn0347z/photos.pkl?raw=1'
+# export_file_url = 'https://www.dropbox.com/s/6et34v79gn0347z/photos.pkl?raw=1'
+export_file_url = 'https://www.dropbox.com/s/hg2zqkj2nt93bob/photos.pkl?raw=1'
 
 # export_file_name = 'export.pkl'
 export_file_name = 'photos.pkl'
@@ -74,6 +75,14 @@ async def analyze(request):
     # print(str(learn.predict(img)[0]))
     return JSONResponse({'result': str(prediction)})
 
+# uses the user file interface
+@app.route('/analyzeUI', methods=['POST'])
+async def analyze(request):
+    img_data = await request.form()
+    img_bytes = await (img_data['file'].read())
+    img = open_image(BytesIO(img_bytes))
+    prediction = learn.predict(img)[0]
+    return JSONResponse({'result': str(prediction)})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
