@@ -66,12 +66,16 @@ async def homepage(request):
 async def analyze(request):
     img_data = await request.form()
     url = img_data['file']
+    file_name = img_data['name']
     # url = 'https://firebasestorage.googleapis.com/v0/b/videoapp-17413.appspot.com/o/11577e36-42ba-44a0-ab89-d5e0d7675c5f?alt=media&token=9585da0a-f8b8-4e6b-88ab-5f44c0fa7fe7'
     response = urllib.request.urlopen(url)
     # print(response)
     img_bytes = (response.read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
+
+    cloud_response = urllib.request.urlopen(f'https://us-central1-videoapp-17413.cloudfunctions.net/ap?ed={prediction}&am={file_name}')
+    
     # print(str(learn.predict(img)[0]))
     return JSONResponse({'result': str(prediction)})
 
@@ -82,7 +86,10 @@ async def analyze(request):
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
+    response = urllib.request.urlopen(f'https://us-central1-videoapp-17413.cloudfunctions.net/ap?ed={prediction}')
+    url_bytes = (response.read())
+    print(url_bytes)
+    return JSONResponse({'result': str(url_bytes)})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
