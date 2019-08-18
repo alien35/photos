@@ -74,7 +74,7 @@ async def analyze(request):
     img = open_image(BytesIO(img_bytes))
     prediction = learn.predict(img)[0]
 
-    cloud_response = urllib.request.urlopen(f'https://us-central1-videoapp-17413.cloudfunctions.net/ap?ed={prediction}&am={file_name}')
+    # cloud_response = urllib.request.urlopen(f'https://us-central1-videoapp-17413.cloudfunctions.net/ap?ed={prediction}&am={file_name}')
     
     # print(str(learn.predict(img)[0]))
     return JSONResponse({'result': str(prediction)})
